@@ -215,10 +215,14 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
-local projectfile = vim.fn.getcwd() .. '/project.godot'
-if projectfile then
-  vim.fn.serverstart './godothost'
+
+
+local gdproject = io.open(vim.fn.getcwd()..'/project.godot', 'r')
+if gdproject then
+    io.close(gdproject)
+    vim.fn.serverstart './godothost'
 end
+
 
 -- [[ Configure and install plugins ]]
 --
